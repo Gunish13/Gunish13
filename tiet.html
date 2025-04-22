@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aetheria - TIET's Cultural & Technical Extravaganza</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a00f4;
+            --secondary: #ff00a0;
+            --dark: #0a0118;
+            --light: #f8f1ff;
+            --accent: #00f4e1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="white"/><circle cx="50" cy="30" r="1" fill="white"/><circle cx="80" cy="10" r="1" fill="white"/><circle cx="10" cy="60" r="1" fill="white"/><circle cx="40" cy="70" r="1" fill="white"/><circle cx="70" cy="50" r="1" fill="white"/><circle cx="90" cy="90" r="1" fill="white"/><circle cx="30" cy="85" r="1" fill="white"/><circle cx="60" cy="95" r="1" fill="white"/></svg>');
+            opacity: 0.5;
+            animation: twinkle 5s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            to {
+                opacity: 0.8;
+            }
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            z-index: 5;
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(106, 0, 244, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(106, 0, 244, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(106, 0, 244, 0.4);
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-element {
+            position: absolute;
+            opacity: 0.7;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        section {
+            padding: 5rem 10%;
+        }
+        
+        .about {
+            background-color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            top: 20px;
+            left: 20px;
+            z-index: -1;
+        }
+        
+        .highlights {
+            background: linear-gradient(135deg, rgba(106, 0, 244, 0.1), rgba(255, 0, 160, 0.1));
+        }
+        
+        .highlight-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(106, 0, 244, 0.2);
+        }
+        
+        .highlight-card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(106, 0, 244, 0.3);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        .gallery-caption h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .gallery-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .register {
+            background-color: var(--dark);
+        }
+        
+        .register-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 3rem 10%;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image::before {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="gradient-bg">
+        <div class="stars"></div>
+        <div class="floating-elements">
+            <div class="floating-element" style="top: 20%; left: 10%; font-size: 2rem;">🎤</div>
+            <div class="floating-element" style="top: 70%; left: 80%; font-size: 2rem;">💻</div>
+            <div class="floating-element" style="top: 40%; left: 85%; font-size: 2rem;">🎭</div>
+            <div class="floating-element" style="top: 80%; left: 15%; font-size: 2rem;">🎧</div>
+            <div class="floating-element" style="top: 30%; left: 70%; font-size: 2rem;">🤖</div>
+            <div class="floating-element" style="top: 60%; left: 20%; font-size: 2rem;">🎨</div>
+        </div>
+        
+        <nav>
+            <div class="logo">Aetheria</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#register">Register</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+        
+        <div class="hero">
+            <h1>Aetheria</h1>
+            <p>Where innovation meets imagination at Thapar Institute of Engineering and Technology</p>
+            <a href="#register" class="cta-button">Register Now</a>
+        </div>
+    </header>
+    
+    <section id="about" class="about">
+        <h2 class="section-title">About Aetheria</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>The Flagship Cultural & Technical Extravaganza</h3>
+                <p>Aetheria is the premier annual event of Thapar Institute of Engineering and Technology, transforming our campus into a vibrant hub of energy, creativity, and collaboration.</p>
+                <p>With a spectacular blend of music, dance, drama, and tech showcases, Aetheria celebrates the spirit of youth and the power of ideas. Our event brings together the brightest talents from across the nation for an unforgettable experience.</p>
+                <p>From electrifying performances to cutting-edge technology demonstrations, Aetheria offers a platform where creativity knows no bounds. Join us for three days of non-stop entertainment, inspiration, and celebration.</p>
+                <a href="#gallery" class="cta-button">View Memories</a>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Aetheria Event">
+            </div>
+        </div>
+    </section>
+    
+    <section id="highlights" class="highlights">
+        <h2 class="section-title">Event Highlights</h2>
+        <div class="highlight-cards">
+            <div class="highlight-card">
+                <i class="fas fa-music"></i>
+                <h3>Musical Nights</h3>
+                <p>Experience electrifying performances from talented artists across genres, from classical to contemporary.</p>
+            </div>
+            <div class="highlight-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Tech Showcases</h3>
+                <p>Witness groundbreaking innovations and cutting-edge technology demonstrations from bright minds.</p>
+            </div>
+            <div class="highlight-card">
+                <i class="fas fa-theater-masks"></i>
+                <h3>Drama & Arts</h3>
+                <p>Be captivated by powerful theatrical performances and stunning visual art exhibitions.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="gallery" class="about">
+        <h2 class="section-title">Gallery</h2>
+        <div class="photo-gallery">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Concert">
+                <div class="gallery-caption">
+                    <h3>Musical Night</h3>
+                    <p>Our annual concert featuring talented musicians from across the country</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Dance Performance">
+                <div class="gallery-caption">
+                    <h3>Dance Performance</h3>
+                    <p>Traditional and contemporary dance forms come alive on stage</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="Tech Expo">
+                <div class="gallery-caption">
+                    <h3>Tech Expo</h3>
+                    <p>Students showcase their innovative projects and research</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Workshop">
+                <div class="gallery-caption">
+                    <h3>Stage Performances</h3>
+                    <p>Dramatic presentations that tell powerful stories</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Audience">
+                <div class="gallery-caption">
+                    <h3>Excited Crowd</h3>
+                    <p>The energy of our participants is what makes Aetheria special</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1492681290082-e932832941e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Stage Performance">
+                <div class="gallery-caption">
+                    <h3>Closing Ceremony</h3>
+                    <p>The grand finale that brings everyone together</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="register" class="register">
+        <h2 class="section-title">Register Now</h2>
+        <div class="register-container">
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="college">College/Institution</label>
+                    <input type="text" id="college" required>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%; margin-top: 1rem;">Complete Registration</button>
+            </form>
+        </div>
+    </section>
+    
+    <section id="contact" class="highlights">
+        <h2 class="section-title">Contact Us</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 2rem; backdrop-filter: blur(10px);">
+                <h3 style="margin-bottom: 1.5rem; color: var(--accent);">Organizing Committee (Under the aegis of Dean, Student Affairs.)</h3>
+      
+                <p style="margin-bottom: 1rem; opacity: 0.9;"><i class="fas fa-user" style="margin-right: 0.5rem; color: var(--accent);"></i> Rohan Sharma - general secretary</p>
+                <p style="margin-bottom: 1rem; opacity: 0.9;"><i class="fas fa-envelope" style="margin-right: 0.5rem; color: var(--accent);"></i> aetheria@thapar.edu</p>
+                <p style="opacity: 0.9;"><i class="fas fa-phone" style="margin-right: 0.5rem; color: var(--accent);"></i> +91 9876543210</p>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 2rem; backdrop-filter: blur(10px);">
+                <h3 style="margin-bottom: 1.5rem; color: var(--accent);">Venue</h3>
+                <p style="margin-bottom: 1.5rem; opacity: 0.9;"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent);"></i> Thapar Institute of Engineering and Technology, Patiala, Punjab</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3441.396036072961!2d76.365719315127!3d30.37492358175728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391028ab5f3c3b63%3A0x5a1e7b1f3a0a3a0a!2sThapar%20Institute%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="logo">Aetheria</div>
+            <p>Thapar Institute of Engineering and Technology</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/tietofficial?igsh=MTN0aTVnNTZyOTVqZA==" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/aetheria_tiet" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com/aetheria.tiet" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/school/tietofficial/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://youtube.com/@tietofficial?si=Dm9IQ7crlCYk3bCb" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">© 2025 Aetheria. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="">
+        </div>
+    </div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Form submission
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for registering for Aetheria! We will contact you soon with more details.');
+            this.reset();
+        });
+        
+        // Image gallery modal
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-image');
+        const closeModal = document.querySelector('.close-modal');
+        
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'flex';
+                modalImg.src = this.src;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
